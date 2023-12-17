@@ -30,10 +30,11 @@ public class GPSTable extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
-                + RUNID_COL + " INTEGER PRIMARY KEY, "
-                + TIMESTAMP_COL + " INTEGER PRIMARY KEY, "
+                + RUNID_COL + " INTEGER, "
+                + TIMESTAMP_COL + " INTEGER, "
                 + LONGITUDE_COL + " REAL, "
-                + LATITUDE_COL + " REAL)";
+                + LATITUDE_COL + " REAL, " +
+                "PRIMARY KEY (" + RUNID_COL + ", " + TIMESTAMP_COL +"))";
 
         db.execSQL(query);
     }
@@ -90,8 +91,8 @@ public class GPSTable extends SQLiteOpenHelper {
 
             if (cursor == null || !cursor.moveToNext()) return Optional.empty();
 
-            double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LATITUDE_COL));
-            double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LONGITUDE_COL));
+            double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LATITUDE_COL));
+            double longitude= cursor.getDouble(cursor.getColumnIndexOrThrow(LONGITUDE_COL));
 
             cursor.close();
 
@@ -117,8 +118,8 @@ public class GPSTable extends SQLiteOpenHelper {
             if (cursor == null) return points;
 
             while (cursor.moveToNext()) {
-                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LATITUDE_COL));
-                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LONGITUDE_COL));
+                double latitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LATITUDE_COL));
+                double longitude = cursor.getDouble(cursor.getColumnIndexOrThrow(LONGITUDE_COL));
                 long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(TIMESTAMP_COL));
 
                 points.add(new GPSPoint(runid, timestamp, longitude, latitude));

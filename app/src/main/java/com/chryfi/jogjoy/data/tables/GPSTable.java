@@ -111,7 +111,7 @@ public class GPSTable extends SQLiteOpenHelper {
         try (SQLiteDatabase db = this.getReadableDatabase()) {
             Cursor cursor = db.query(TABLE_NAME, null,
                     RUNID_COL + "=?", new String[]{String.valueOf(runid)},
-                    null, null, null);
+                    null, null, TIMESTAMP_COL + " ASC");
 
             List<GPSPoint> points = new ArrayList<>();
             if (cursor == null) return points;

@@ -21,8 +21,11 @@ public class RunTable extends SQLiteOpenHelper {
     private static final String GOAL_COL = "goal";
     private static final String USERNAME_COL = "username";
 
+    private final Context context;
+
     public RunTable(Context context) {
         super(context, TABLE_NAME, null, DB_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -52,16 +55,12 @@ public class RunTable extends SQLiteOpenHelper {
     }
 
     /**
-     * Inserts the run and also the gps points in the run object.
-     * The GPS point's run ids will be set to the generated id of the inserted run.
+     * Inserts the run.
      * @param run
      * @return true if the insertion was successful.
      */
     public boolean insertRun(Run run) {
-        try (SQLiteDatabase db = this.getWritableDatabase();
-             //TODO Context null apparently bad
-             GPSTable gpsTable = new GPSTable(null)) {
-
+        try (SQLiteDatabase db = this.getWritableDatabase()) {
             ContentValues values = new ContentValues();
 
             values.put(GOAL_COL, run.getGoal());
@@ -71,18 +70,6 @@ public class RunTable extends SQLiteOpenHelper {
 
             if (id != -1) {
                 run.setId(id);
-
-                try {
-                    for (GPSPoint point : run.getGpspoints()) {
-                        point.setRunid(id);
-                        gpsTable.insertGPSPoint(point);
-                    }
-                } catch (SQLException e) {
-                    /* prevent inconsistent data where runs have missing gps */
-                    e.printStackTrace();
-                    this.deleteRun(id, run.getUsername());
-                }
-
                 return true;
             }
         } catch (SQLException e) {
@@ -95,7 +82,7 @@ public class RunTable extends SQLiteOpenHelper {
 
     public Optional<Run> getRunById(long id) {
         try (SQLiteDatabase db = this.getReadableDatabase();
-             GPSTable gpsTable = new GPSTable(null)) {
+             GPSTable gpsTable = new GPSTable(this.context)) {
             Cursor cursor = db.query(TABLE_NAME, null,
                     ID_COL + "=?", new String[]{String.valueOf(id)},
                     null, null, null);

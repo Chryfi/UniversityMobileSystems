@@ -25,20 +25,40 @@ public class MainActivity extends AppCompatActivity {
         User testUser = new User("test2", "password", 80, 180, User.Gender.MALE);
 
         List<GPSPoint> points = new ArrayList<>();
-        points.add(new GPSPoint(-1, 1, 2, 3));
-        points.add(new GPSPoint(-1, 2, 3, 3));
-        points.add(new GPSPoint(-1, 3, 4, 3));
-        points.add(new GPSPoint(-1, 4, 2, 3));
         Run testRun = new Run(12.1F, "test2", points);
 
         try (UserTable userTable = new UserTable(this);
              RunTable runTable = new RunTable(this);
              GPSTable gpsTable = new GPSTable(this)) {
-            System.out.println("Test2 deleted " + userTable.deleteUser("test2"));
-            System.out.println("Insert test2 user " + userTable.insertUser(testUser));
-            System.out.println("Insert testRun " + runTable.insertRun(testRun));
+
+            for (GPSPoint point : points) {
+                System.out.println("delete point " + gpsTable.deleteGPSPoint(point.getRunid(), point.getTimestamp()));
+            }
+
+            System.out.println("delete run id " + runTable.deleteRun(testRun.getId().get(), testRun.getUsername()));
+            System.out.println("delete test2 user " + userTable.deleteUser("test2"));
+
+            System.out.println("insert test2 user " + userTable.insertUser(testUser));
+            System.out.println("insert testRun " + runTable.insertRun(testRun));
+
+            points.add(new GPSPoint(testRun.getId().get(), 1, 2, 3));
+            points.add(new GPSPoint(testRun.getId().get(), 2, 3, 3));
+            points.add(new GPSPoint(testRun.getId().get(), 3, 4, 3));
+            points.add(new GPSPoint(testRun.getId().get(), 4, 2, 3));
+
+            for (GPSPoint point : points) {
+                System.out.println("insert gps point " + gpsTable.insertGPSPoint(point));
+            }
+
             System.out.println("testrun equality " + runTable.getRunById(testRun.getId().get()).get());
-            System.out.println("EQUALS " + userTable.getUserByUsername("test2").get().equals(testUser));
+            System.out.println("user equality " + userTable.getUserByUsername("test2").get().equals(testUser));
+
+            List<GPSPoint> pointsDB = gpsTable.getGPSPoints(testRun.getId().get());
+            for (int i = 0; i < pointsDB.size() && i < points.size(); i++) {
+                GPSPoint pointDB = pointsDB.get(i);
+                GPSPoint point = points.get(i);
+                System.out.println("GPSpoint equality with timestamp " + pointDB.getTimestamp() + " " + point.equals(pointDB));
+            }
         }
     }
 }

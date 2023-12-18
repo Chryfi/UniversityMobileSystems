@@ -6,10 +6,10 @@ public class User {
     private String username;
     private String password;
     private float weight;
-    private float height;
+    private int height;
     private Gender gender;
 
-    public User(String username, String password, float weight, float height, Gender gender) {
+    public User(String username, String password, float weight, int height, Gender gender) {
         this.username = username;
         this.password = password;
         this.weight = weight;
@@ -41,11 +41,11 @@ public class User {
         this.weight = weight;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return this.height;
     }
 
-    public void setHeight(float height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 

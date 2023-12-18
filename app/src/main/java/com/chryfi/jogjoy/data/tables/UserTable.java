@@ -31,7 +31,7 @@ public class UserTable extends SQLiteOpenHelper {
         String query = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
                 + USERNAME_COL + " TEXT PRIMARY KEY, "
                 + PASSWORD_COL + " TEXT, "
-                + HEIGHT_COL + " REAL, "
+                + HEIGHT_COL + " INTEGER, "
                 + WEIGHT_COL + " REAL, "
                 + GENDER_COL + " TEXT)";
 
@@ -75,7 +75,7 @@ public class UserTable extends SQLiteOpenHelper {
 
             String password = cursor.getString(cursor.getColumnIndexOrThrow(PASSWORD_COL));
             float weight = cursor.getFloat(cursor.getColumnIndexOrThrow(WEIGHT_COL));
-            float height = cursor.getFloat(cursor.getColumnIndexOrThrow(HEIGHT_COL));
+            int height = cursor.getInt(cursor.getColumnIndexOrThrow(HEIGHT_COL));
             String gender = cursor.getString(cursor.getColumnIndexOrThrow(GENDER_COL));
 
             cursor.close();

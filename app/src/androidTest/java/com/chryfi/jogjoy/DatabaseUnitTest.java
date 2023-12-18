@@ -25,6 +25,10 @@ import com.chryfi.jogjoy.data.tables.UserTable;
  */
 @RunWith(AndroidJUnit4.class)
 public class DatabaseUnitTest {
+    /**
+     * Tests insertion, reading from database and comparing with the local object
+     * and deleting the objects again.
+     */
     @Test
     public void testDatabase() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
@@ -46,6 +50,9 @@ public class DatabaseUnitTest {
             System.out.println("Testing insertion of run.");
             assertTrue(runTable.insertRun(run));
             assertTrue(runTable.getRunById(run.getId()).isPresent());
+
+            System.out.println("Testing equality of run and local object");
+            assertEquals(runTable.getRunById(run.getId()).get(), run);
 
             run.addGPSpoint(new GPSPoint(run.getId(), 3, 1.2318458, 2.2318484));
             run.addGPSpoint(new GPSPoint(run.getId(), 4, 3.15284, 4.842384));

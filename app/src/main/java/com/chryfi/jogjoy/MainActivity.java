@@ -1,8 +1,11 @@
 package com.chryfi.jogjoy;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.chryfi.jogjoy.data.GPSPoint;
 import com.chryfi.jogjoy.data.Run;
@@ -20,5 +23,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
+    }
+
+    public void onRegister(View view) {
+        startActivity(new Intent(this.getApplicationContext(), RegisterUserActivity.class));
+    }
+
+    public void onLogin(View view) {
+
     }
 }

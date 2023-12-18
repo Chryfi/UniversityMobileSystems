@@ -15,4 +15,5 @@
     <string name="username_already_exists">This username already exists.</string>
     <string name="password_no_match">Passwords do not match.</string>
     <string name="number_out_range">The given number is out of range.</string>
+    <string name="login_pw_name_fail">Username or password is wrong.</string>
 </resources>

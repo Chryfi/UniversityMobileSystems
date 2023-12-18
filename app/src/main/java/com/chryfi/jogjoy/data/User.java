@@ -90,6 +90,10 @@ public class User {
             return this.value;
         }
 
+        /**
+         * @param value
+         * @return the gender enum which has the matching string value, or null if it was not found.
+         */
         public static Gender fromString(String value) {
             switch (value) {
                 case "m":

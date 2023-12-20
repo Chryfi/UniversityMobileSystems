@@ -21,6 +21,9 @@
             android:name=".RegisterUserActivity"
             android:exported="false" />
         <activity
+            android:name=".RunStartActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -19,7 +19,6 @@
         android:id="@+id/goalDistance"
         android:layout_width="114dp"
         android:layout_height="39dp"
-        android:layout_centerHoriuontal="true"
         android:text="Ziel: 5 km"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,4 +80,5 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeCurrent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

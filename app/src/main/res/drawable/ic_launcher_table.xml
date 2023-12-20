@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Tabellenkopf -->
+        <TableRow>
+            <TextView
+                android:id="@+id/headerLabel1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lauf"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/headerLabel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zieldistanz"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/headerLabel3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gelaufene Distanz"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/headerLabel4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zeit"
+                android:textStyle="bold"
+                android:padding="8dp" />
+        </TableRow>
+
+        <!-- Daten für die letzten drei Läufe -->
+        <TableRow>
+            <TextView
+                android:id="@+id/label1_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lauf 1"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label1_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 km"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label1_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.5 km"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label1_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25 min"
+                android:padding="8dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/label2_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lauf 2"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label2_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 km"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label2_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9.8 km"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label2_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50 min"
+                android:padding="8dp" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/label3_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lauf 3"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label3_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8 km"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label3_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7.2 km"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/label3_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40 min"
+                android:padding="8dp" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

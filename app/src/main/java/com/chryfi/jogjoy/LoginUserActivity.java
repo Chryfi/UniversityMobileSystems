@@ -2,6 +2,8 @@ package com.chryfi.jogjoy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.view.View;
@@ -31,13 +33,15 @@ public class LoginUserActivity extends AppCompatActivity {
         try (UserTable userTable = new UserTable(this)) {
             Optional<User> user = userTable.getUserByUsername(username.getText().toString());
             if (user.isPresent() && user.get().getPassword().equals(password.getText().toString())) {
-                //TODO
-                System.out.println("LOGIN");
+                startActivity(new Intent(this, RunStartActivity.class));
             } else {
                 username.setError(this.getResources().getString(R.string.login_pw_name_fail));
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            new AlertDialog.Builder(this)
+                    .setMessage(this.getResources().getString(R.string.database_error))
+                    .show();
         }
     }
 }

@@ -12,6 +12,7 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
+    <string name="database_error">A database error occurred.</string>
     <string name="username_already_exists">This username already exists.</string>
     <string name="password_no_match">Passwords do not match.</string>
     <string name="number_out_range">The given number is out of range.</string>

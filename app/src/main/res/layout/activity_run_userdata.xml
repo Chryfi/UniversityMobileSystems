@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/container5"
+        android:layout_width="354dp"
+        android:layout_height="65dp"
+        android:background="@drawable/ic_launcher_foreground"
+        android:padding="8dp"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="360dp" />
+
+    <TextView
+        android:id="@+id/goal7"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="376dp" />
+
+    <TextView
+        android:id="@+id/time5"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="298dp"
+        tools:layout_editor_absoluteY="376dp" />
+
+    <EditText
+        android:id="@+id/runOne5"
+        android:layout_width="17dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="3"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="367dp" />
+
+    <TextView
+        android:id="@+id/distance2"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="376dp" />
+
+    <TextView
+        android:id="@+id/container4"
+        android:layout_width="354dp"
+        android:layout_height="65dp"
+        android:background="@drawable/ic_launcher_foreground"
+        android:padding="8dp"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="271dp" />
+
+    <TextView
+        android:id="@+id/goal6"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="287dp" />
+
+    <TextView
+        android:id="@+id/time4"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="298dp"
+        tools:layout_editor_absoluteY="287dp" />
+
+    <EditText
+        android:id="@+id/runOne4"
+        android:layout_width="17dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="2"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="278dp" />
+
+    <TextView
+        android:id="@+id/distance"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="287dp" />
+
+    <TextView
+        android:id="@+id/goal"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="Ziel"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="144dp" />
+
+    <TextView
+        android:id="@+id/distance1"
+        android:layout_width="79dp"
+        android:layout_height="27dp"
+        android:text="Distanz"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="166dp"
+        tools:layout_editor_absoluteY="146dp" />
+
+    <TextView
+        android:id="@+id/goalOne6"
+        android:layout_width="41dp"
+        android:layout_height="26dp"
+        android:text="Zeit"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="306dp"
+        tools:layout_editor_absoluteY="147dp" />
+
+    <TextView
+        android:id="@+id/logoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="JogJoy"
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/abmelden"
+        android:layout_width="113dp"
+        android:layout_height="40dp"
+        android:text="Abmelden"
+        tools:layout_editor_absoluteX="283dp"
+        tools:layout_editor_absoluteY="6dp" />
+
+    <TextView
+        android:id="@+id/recentRun"
+        android:layout_width="171dp"
+        android:layout_height="37dp"
+        android:text="Vergange Läufe"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="110dp"
+        tools:layout_editor_absoluteY="81dp" />
+
+    <Button
+        android:id="@+id/startRun"
+        android:layout_width="121dp"
+        android:layout_height="69dp"
+        android:text="Start"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="580dp" />
+
+    <TextView
+        android:id="@+id/container1"
+        android:layout_width="354dp"
+        android:layout_height="65dp"
+        android:background="@drawable/ic_launcher_foreground"
+        android:padding="8dp"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="180dp" />
+
+    <TextView
+        android:id="@+id/goal1"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="61dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <TextView
+        android:id="@+id/distance1"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <TextView
+        android:id="@+id/time1"
+        android:layout_width="49dp"
+        android:layout_height="29dp"
+        android:text="5 km"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="298dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <EditText
+        android:id="@+id/runOne"
+        android:layout_width="17dp"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="1"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="187dp" />
+
+    <TextView
+        android:id="@+id/newRun"
+        android:layout_width="211dp"
+        android:layout_height="43dp"
+        android:text="Neuen Lauf Starten"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="506dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

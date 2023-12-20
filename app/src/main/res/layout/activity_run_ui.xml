@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="JogJoy"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.023"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/goalDistance"
@@ -19,48 +22,63 @@
         android:layout_centerHoriuontal="true"
         android:text="Ziel: 5 km"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="131dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.157" />
 
     <TextView
         android:id="@+id/distanceCurrent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
         android:text="Distanz:"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="376dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
     <TextView
         android:id="@+id/timeCurrent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:text="Zeit:"
         android:textSize="16sp"
-        tools:layout_editor_absoluteX="190dp"
-        tools:layout_editor_absoluteY="442dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/distanceCurrent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="59dp"
         android:layout_height="63dp"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="220dp" />
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/goalDistance" />
 
     <Button
         android:id="@+id/endRunBT"
         android:layout_width="140dp"
         android:layout_height="60dp"
+        android:layout_marginTop="84dp"
         android:text="Lauf beenden"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="619dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stop_continue" />
 
     <Button
         android:id="@+id/stop_continue"
         android:layout_width="140dp"
         android:layout_height="60dp"
+        android:layout_marginTop="56dp"
         android:text="Stop/Continue"
-        tools:layout_editor_absoluteX="135dp"
-        tools:layout_editor_absoluteY="546dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeCurrent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

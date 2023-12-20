@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRegister(View view) {
-        startActivity(new Intent(this.getApplicationContext(), RegisterUserActivity.class));
+        startActivity(new Intent(this, RegisterUserActivity.class));
     }
 
     public void onLogin(View view) {
-        startActivity(new Intent(this.getApplicationContext(), LoginUserActivity.class));
+        startActivity(new Intent(this, LoginUserActivity.class));
     }
 }

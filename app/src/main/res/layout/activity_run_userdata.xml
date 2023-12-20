@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,39 +9,46 @@
         android:id="@+id/container5"
         android:layout_width="354dp"
         android:layout_height="65dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/ic_launcher_foreground"
         android:padding="8dp"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="360dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container4" />
 
     <TextView
         android:id="@+id/goal7"
         android:layout_width="49dp"
         android:layout_height="29dp"
+        android:layout_marginEnd="56dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="376dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container5"
+        app:layout_constraintEnd_toStartOf="@+id/distance2"
+        app:layout_constraintTop_toTopOf="@+id/container5" />
 
     <TextView
         android:id="@+id/time5"
         android:layout_width="49dp"
         android:layout_height="29dp"
+        android:layout_marginStart="72dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="298dp"
-        tools:layout_editor_absoluteY="376dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container5"
+        app:layout_constraintStart_toEndOf="@+id/distance2"
+        app:layout_constraintTop_toTopOf="@+id/container5" />
 
     <EditText
         android:id="@+id/runOne5"
         android:layout_width="17dp"
         android:layout_height="45dp"
+        android:layout_marginEnd="4dp"
         android:ems="10"
         android:inputType="number"
         android:text="3"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="367dp" />
+        app:layout_constraintEnd_toStartOf="@+id/container5"
+        tools:layout_editor_absoluteY="377dp" />
 
     <TextView
         android:id="@+id/distance2"
@@ -48,46 +56,55 @@
         android:layout_height="29dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="376dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container5"
+        app:layout_constraintEnd_toEndOf="@+id/container5"
+        app:layout_constraintStart_toStartOf="@+id/container5"
+        app:layout_constraintTop_toTopOf="@+id/container5" />
 
     <TextView
         android:id="@+id/container4"
         android:layout_width="354dp"
         android:layout_height="65dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/ic_launcher_foreground"
         android:padding="8dp"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="271dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container1" />
 
     <TextView
         android:id="@+id/goal6"
         android:layout_width="49dp"
         android:layout_height="29dp"
+        android:layout_marginEnd="56dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="287dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container4"
+        app:layout_constraintEnd_toStartOf="@+id/distance"
+        app:layout_constraintTop_toTopOf="@+id/container4" />
 
     <TextView
         android:id="@+id/time4"
         android:layout_width="49dp"
         android:layout_height="29dp"
+        android:layout_marginStart="72dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="298dp"
-        tools:layout_editor_absoluteY="287dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container4"
+        app:layout_constraintStart_toEndOf="@+id/distance"
+        app:layout_constraintTop_toTopOf="@+id/container4" />
 
     <EditText
         android:id="@+id/runOne4"
-        android:layout_width="17dp"
+        android:layout_width="16dp"
         android:layout_height="45dp"
+        android:layout_marginEnd="4dp"
         android:ems="10"
         android:inputType="number"
         android:text="2"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="278dp" />
+        app:layout_constraintEnd_toStartOf="@+id/container4"
+        tools:layout_editor_absoluteY="288dp" />
 
     <TextView
         android:id="@+id/distance"
@@ -95,78 +112,96 @@
         android:layout_height="29dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="287dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container4"
+        app:layout_constraintEnd_toEndOf="@+id/container4"
+        app:layout_constraintStart_toStartOf="@+id/container4"
+        app:layout_constraintTop_toTopOf="@+id/container4" />
 
     <TextView
         android:id="@+id/goal"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
+        android:layout_width="45dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="-50dp"
         android:text="Ziel"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="144dp" />
+        app:layout_constraintEnd_toStartOf="@+id/distance1"
+        app:layout_constraintTop_toBottomOf="@+id/recentRun" />
 
     <TextView
         android:id="@+id/distance1"
         android:layout_width="79dp"
         android:layout_height="27dp"
+        android:layout_marginTop="20dp"
         android:text="Distanz"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="166dp"
-        tools:layout_editor_absoluteY="146dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recentRun" />
 
     <TextView
         android:id="@+id/goalOne6"
         android:layout_width="41dp"
         android:layout_height="26dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginTop="20dp"
         android:text="Zeit"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="306dp"
-        tools:layout_editor_absoluteY="147dp" />
+        app:layout_constraintStart_toEndOf="@+id/distance1"
+        app:layout_constraintTop_toBottomOf="@+id/recentRun" />
 
     <TextView
         android:id="@+id/logoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="JogJoy"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
     <Button
         android:id="@+id/abmelden"
-        android:layout_width="113dp"
-        android:layout_height="40dp"
+        android:layout_width="127dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="16dp"
         android:text="Abmelden"
-        tools:layout_editor_absoluteX="283dp"
-        tools:layout_editor_absoluteY="6dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.961"
+        app:layout_constraintStart_toEndOf="@+id/logoText"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/recentRun"
         android:layout_width="171dp"
         android:layout_height="37dp"
+        android:layout_marginTop="84dp"
         android:text="Vergange Läufe"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="110dp"
-        tools:layout_editor_absoluteY="81dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/startRun"
         android:layout_width="121dp"
         android:layout_height="69dp"
+        android:layout_marginTop="40dp"
         android:text="Start"
-        tools:layout_editor_absoluteX="145dp"
-        tools:layout_editor_absoluteY="580dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newRun" />
 
     <TextView
         android:id="@+id/container1"
         android:layout_width="354dp"
         android:layout_height="65dp"
+        android:layout_marginTop="76dp"
         android:background="@drawable/ic_launcher_foreground"
         android:padding="8dp"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="33dp"
-        tools:layout_editor_absoluteY="180dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recentRun" />
 
     <TextView
         android:id="@+id/goal1"
@@ -174,8 +209,11 @@
         android:layout_height="29dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container1"
+        app:layout_constraintEnd_toEndOf="@+id/container1"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="@+id/container1"
+        app:layout_constraintTop_toTopOf="@+id/container1" />
 
     <TextView
         android:id="@+id/distance1"
@@ -183,8 +221,11 @@
         android:layout_height="29dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="181dp"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container1"
+        app:layout_constraintEnd_toEndOf="@+id/container1"
+        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintStart_toStartOf="@+id/container1"
+        app:layout_constraintTop_toTopOf="@+id/container1" />
 
     <TextView
         android:id="@+id/time1"
@@ -192,27 +233,32 @@
         android:layout_height="29dp"
         android:text="5 km"
         android:textSize="20sp"
-        tools:layout_editor_absoluteX="298dp"
-        tools:layout_editor_absoluteY="196dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/container1"
+        app:layout_constraintEnd_toEndOf="@+id/container1"
+        app:layout_constraintHorizontal_bias="0.881"
+        app:layout_constraintStart_toStartOf="@+id/container1"
+        app:layout_constraintTop_toTopOf="@+id/container1" />
 
     <EditText
         android:id="@+id/runOne"
-        android:layout_width="17dp"
+        android:layout_width="15dp"
         android:layout_height="45dp"
-        android:ems="10"
+        android:layout_marginEnd="4dp"
         android:inputType="number"
         android:text="1"
-        tools:layout_editor_absoluteX="13dp"
-        tools:layout_editor_absoluteY="187dp" />
+        app:layout_constraintEnd_toStartOf="@+id/container1"
+        tools:layout_editor_absoluteY="207dp" />
 
     <TextView
         android:id="@+id/newRun"
         android:layout_width="211dp"
         android:layout_height="43dp"
+        android:layout_marginTop="84dp"
         android:text="Neuen Lauf Starten"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="506dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

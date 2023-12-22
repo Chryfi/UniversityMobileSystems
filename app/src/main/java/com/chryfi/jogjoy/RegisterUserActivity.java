@@ -48,6 +48,25 @@ public class RegisterUserActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        /* reset the input elements when the user exits out of the activity */
+        EditText username = this.findViewById(R.id.username_input);
+        EditText password0 = this.findViewById(R.id.password_input);
+        EditText password1 = this.findViewById(R.id.password_input2);
+        Spinner gender = this.findViewById(R.id.gender_spinner);
+        EditText weight = this.findViewById(R.id.weight_input);
+        EditText height = this.findViewById(R.id.height_input);
+
+        username.setText("");
+        password0.setText("");
+        password1.setText("");
+        gender.setSelection(0);
+        weight.setText("");
+        height.setText("");
+    }
+
     public void registerUser(View view) {
         EditText username = this.findViewById(R.id.username_input);
         EditText password0 = this.findViewById(R.id.password_input);

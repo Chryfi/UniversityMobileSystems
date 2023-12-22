@@ -18,6 +18,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static String loggedInUsername = "";
+
+    public static String getLoggedinUsername() {
+        return loggedInUsername;
+    }
+
+    public static void logoutUser() {
+        loggedInUsername = "";
+    }
+
+    public static void loginUser(String username) {
+        loggedInUsername = username;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -69,69 +69,12 @@ public class RegisterUserActivity extends AppCompatActivity {
 
     public void registerUser(View view) {
         EditText username = this.findViewById(R.id.username_input);
-        EditText password0 = this.findViewById(R.id.password_input);
-        EditText password1 = this.findViewById(R.id.password_input2);
+        EditText password = this.findViewById(R.id.password_input);
         Spinner gender = this.findViewById(R.id.gender_spinner);
         EditText weight = this.findViewById(R.id.weight_input);
         EditText height = this.findViewById(R.id.height_input);
 
-        /* check if everything has been input */
-        if (username.getText().toString().isEmpty()
-                || password0.getText().toString().isEmpty() || password1.getText().toString().isEmpty()
-                || weight.getText().toString().isEmpty() || height.getText().toString().isEmpty()
-                || gender.getSelectedItem() == null) {
-            return;
-        }
-
-        boolean error = false;
-
-        /* check if username already exists */
-        try (UserTable userTable = new UserTable(this)) {
-            if (userTable.getUserByUsername(username.getText().toString()).isPresent()) {
-                username.setError(this.getResources().getString(R.string.username_already_exists));
-                error = true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            new AlertDialog.Builder(this)
-                    .setMessage(this.getResources().getString(R.string.database_error))
-                    .show();
-            return;
-        }
-
-        /* check if passwords match */
-        if (!password0.getText().toString().equals(password1.getText().toString())) {
-            password0.getText().clear();
-            password1.getText().clear();
-            password0.setError(this.getResources().getString(R.string.password_no_match));
-            password1.setError(this.getResources().getString(R.string.password_no_match));
-            error = true;
-        }
-
-        /* validate number ranges */
-        try {
-            if (Float.parseFloat(weight.getText().toString()) <= 0
-                    || Float.parseFloat(weight.getText().toString()) >= 1000) {
-                weight.setError(this.getResources().getString(R.string.number_out_range));
-                error = true;
-            }
-        } catch (NumberFormatException e) {
-            weight.setError(this.getResources().getString(R.string.not_a_number));
-            error = true;
-        }
-
-        try {
-            if (Float.parseFloat(height.getText().toString()) <= 0
-                    || Float.parseFloat(height.getText().toString()) >= 1000) {
-                height.setError(this.getResources().getString(R.string.number_out_range));
-                error = true;
-            }
-        } catch (NumberFormatException e) {
-            height.setError(this.getResources().getString(R.string.not_a_number));
-            error = true;
-        }
-
-        if (error) return;
+        if (!this.validateInput()) return;
 
         User.Gender genderValue = null;
         switch (gender.getSelectedItemPosition()) {
@@ -146,12 +89,12 @@ public class RegisterUserActivity extends AppCompatActivity {
                 break;
         }
 
-        String password = password0.getText().toString();
+        String passwordValue = password.getText().toString();
         String usernameValue = username.getText().toString();
         float weightValue = this.roundWeight(Float.parseFloat(weight.getText().toString()));
         int heightValue = this.roundHeight(Float.parseFloat(height.getText().toString()));
 
-        User user = new User(usernameValue, password, weightValue, heightValue, genderValue);
+        User user = new User(usernameValue, passwordValue, weightValue, heightValue, genderValue);
 
         try (UserTable userTable = new UserTable(this)) {
             if (userTable.insertUser(user)) {
@@ -167,6 +110,77 @@ public class RegisterUserActivity extends AppCompatActivity {
                     .setMessage(this.getResources().getString(R.string.database_error))
                     .show();
         }
+    }
+
+    /**
+     * This method validates the UI input elements and sets respective errors.
+     * @return false if there is an error in the input.
+     */
+    private boolean validateInput() {
+        EditText username = this.findViewById(R.id.username_input);
+        EditText password0 = this.findViewById(R.id.password_input);
+        EditText password1 = this.findViewById(R.id.password_input2);
+        Spinner gender = this.findViewById(R.id.gender_spinner);
+        EditText weight = this.findViewById(R.id.weight_input);
+        EditText height = this.findViewById(R.id.height_input);
+
+        /* check if everything has been input */
+        if (username.getText().toString().isEmpty()
+                || password0.getText().toString().isEmpty() || password1.getText().toString().isEmpty()
+                || weight.getText().toString().isEmpty() || height.getText().toString().isEmpty()
+                || gender.getSelectedItem() == null) {
+            return false;
+        }
+
+        boolean noError = true;
+
+        /* check if username already exists */
+        try (UserTable userTable = new UserTable(this)) {
+            if (userTable.getUserByUsername(username.getText().toString()).isPresent()) {
+                username.setError(this.getResources().getString(R.string.username_already_exists));
+                noError = false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            new AlertDialog.Builder(this)
+                    .setMessage(this.getResources().getString(R.string.database_error))
+                    .show();
+            return false;
+        }
+
+        /* check if passwords match */
+        if (!password0.getText().toString().equals(password1.getText().toString())) {
+            password0.getText().clear();
+            password1.getText().clear();
+            password0.setError(this.getResources().getString(R.string.password_no_match));
+            password1.setError(this.getResources().getString(R.string.password_no_match));
+            noError = false;
+        }
+
+        /* validate number ranges */
+        try {
+            if (Float.parseFloat(weight.getText().toString()) <= 0
+                    || Float.parseFloat(weight.getText().toString()) >= 1000) {
+                weight.setError(this.getResources().getString(R.string.number_out_range));
+                noError = false;
+            }
+        } catch (NumberFormatException e) {
+            weight.setError(this.getResources().getString(R.string.not_a_number));
+            noError = false;
+        }
+
+        try {
+            if (Float.parseFloat(height.getText().toString()) <= 0
+                    || Float.parseFloat(height.getText().toString()) >= 1000) {
+                height.setError(this.getResources().getString(R.string.number_out_range));
+                noError = false;
+            }
+        } catch (NumberFormatException e) {
+            height.setError(this.getResources().getString(R.string.not_a_number));
+            noError = false;
+        }
+
+        return noError;
     }
 
     /**

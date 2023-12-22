@@ -33,13 +33,17 @@ public class RegisterUserActivity extends AppCompatActivity {
         /* event listeners when the user finished typing the text to auto correct it */
         weight.setOnFocusChangeListener((view, hasFocus) -> {
             if (!hasFocus) {
-                weight.setText(String.valueOf(roundWeight(Float.parseFloat(weight.getText().toString()))));
+                try {
+                    weight.setText(String.valueOf(roundWeight(Float.parseFloat(weight.getText().toString()))));
+                } catch (NumberFormatException e) { }
             }
         });
 
         height.setOnFocusChangeListener((view, hasFocus) -> {
             if (!hasFocus) {
-                height.setText(String.valueOf(roundHeight(Float.parseFloat(height.getText().toString()))));
+                try {
+                    height.setText(String.valueOf(roundHeight(Float.parseFloat(height.getText().toString()))));
+                } catch (NumberFormatException e) { }
             }
         });
     }
@@ -86,15 +90,25 @@ public class RegisterUserActivity extends AppCompatActivity {
         }
 
         /* validate number ranges */
-        if (Float.parseFloat(weight.getText().toString()) <= 0
-                || Float.parseFloat(weight.getText().toString()) >= 1000) {
-            weight.setError(this.getResources().getString(R.string.number_out_range));
+        try {
+            if (Float.parseFloat(weight.getText().toString()) <= 0
+                    || Float.parseFloat(weight.getText().toString()) >= 1000) {
+                weight.setError(this.getResources().getString(R.string.number_out_range));
+                error = true;
+            }
+        } catch (NumberFormatException e) {
+            weight.setError(this.getResources().getString(R.string.not_a_number));
             error = true;
         }
 
-        if (Float.parseFloat(height.getText().toString()) <= 0
-                || Float.parseFloat(height.getText().toString()) >= 1000) {
-            height.setError(this.getResources().getString(R.string.number_out_range));
+        try {
+            if (Float.parseFloat(height.getText().toString()) <= 0
+                    || Float.parseFloat(height.getText().toString()) >= 1000) {
+                height.setError(this.getResources().getString(R.string.number_out_range));
+                error = true;
+            }
+        } catch (NumberFormatException e) {
+            height.setError(this.getResources().getString(R.string.not_a_number));
             error = true;
         }
 

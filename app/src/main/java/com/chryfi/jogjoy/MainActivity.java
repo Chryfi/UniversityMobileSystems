@@ -36,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
+
+        /*
+         * app was brought back from background with logged in user
+         * return to logged in start activity
+         */
+        if (!MainActivity.getLoggedinUsername().isEmpty()) {
+            Intent intent = new Intent(this, RunStartActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            this.startActivity(intent);
+        }
     }
 
     public void onRegister(View view) {

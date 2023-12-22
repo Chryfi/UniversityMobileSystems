@@ -9,6 +9,9 @@
     <string name="height">Height</string>
     <string name="run_goal_distance">Goal distance</string>
     <string name="run_goal_number_low">Run goal is too low.</string>
+    <string name="run_abort">Are you sure you want to stop the run?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string-array name="gender_values">
         <item>Male</item>
         <item>Female</item>

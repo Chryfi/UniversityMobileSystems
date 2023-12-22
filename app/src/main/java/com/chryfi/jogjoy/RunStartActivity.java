@@ -13,7 +13,7 @@ public class RunStartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_run_userdata);
+        this.setContentView(R.layout.activity_run_userdata);
 
         EditText runGoal = this.findViewById(R.id.run_goal);
 

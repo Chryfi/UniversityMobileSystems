@@ -33,7 +33,11 @@ public class LoginUserActivity extends AppCompatActivity {
         try (UserTable userTable = new UserTable(this)) {
             Optional<User> user = userTable.getUserByUsername(username.getText().toString());
             if (user.isPresent() && user.get().getPassword().equals(password.getText().toString())) {
-                startActivity(new Intent(this, RunStartActivity.class));
+                MainActivity.loginUser(user.get().getUsername());
+                Intent intent = new Intent(this, RunStartActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                this.startActivity(intent);
+                this.finish();
             } else {
                 username.setError(this.getResources().getString(R.string.login_pw_name_fail));
             }

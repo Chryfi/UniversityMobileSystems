@@ -8,6 +8,7 @@
     <string name="weight">Weight</string>
     <string name="height">Height</string>
     <string name="run_goal_distance">Goal distance</string>
+    <string name="run_goal_number_low">Run goal is too low.</string>
     <string-array name="gender_values">
         <item>Male</item>
         <item>Female</item>
@@ -18,6 +19,7 @@
     <string name="password_no_match">Passwords do not match.</string>
     <string name="number_out_range">The given number is out of range.</string>
     <string name="not_a_number">The given input is not a number.</string>
+    <string name="input_missing">You need to provide an input.</string>
     <string name="login_pw_name_fail">Username or password is wrong.</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
@@ -29,5 +31,4 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="recent_run_Title">"Vergangene Läufe</string>
-
 </resources>

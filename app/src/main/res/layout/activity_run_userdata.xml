@@ -48,7 +48,7 @@
         android:inputType="number"
         android:text="3"
         app:layout_constraintEnd_toStartOf="@+id/container5"
-        tools:layout_editor_absoluteY="377dp" />
+        tools:layout_editor_absoluteY="374dp" />
 
     <TextView
         android:id="@+id/distance2"
@@ -154,20 +154,21 @@
         android:id="@+id/logoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="JogJoy"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/abmelden"
+        android:id="@+id/logout"
         android:layout_width="127dp"
         android:layout_height="42dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:onClick="logout"
         android:text="Abmelden"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.961"
-        app:layout_constraintStart_toEndOf="@+id/logoText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -183,13 +184,14 @@
 
     <Button
         android:id="@+id/startRun"
-        android:layout_width="121dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:onClick="startRun"
         android:text="Start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newRun" />
+        app:layout_constraintTop_toBottomOf="@+id/run_goal" />
 
     <TextView
         android:id="@+id/container1"
@@ -251,14 +253,26 @@
 
     <TextView
         android:id="@+id/newRun"
-        android:layout_width="211dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="84dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:text="Neuen Lauf Starten"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container5" />
+
+    <EditText
+        android:id="@+id/run_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/run_goal_distance"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newRun" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

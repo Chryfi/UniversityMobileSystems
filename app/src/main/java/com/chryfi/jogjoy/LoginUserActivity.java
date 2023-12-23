@@ -35,6 +35,7 @@ public class LoginUserActivity extends AppCompatActivity {
             if (user.isPresent() && user.get().getPassword().equals(password.getText().toString())) {
                 MainActivity.loginUser(user.get().getUsername());
                 Intent intent = new Intent(this, RunStartActivity.class);
+                /* don't let the user go back to login page */
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 this.startActivity(intent);
                 this.finish();

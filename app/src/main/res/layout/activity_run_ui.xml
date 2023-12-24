@@ -63,22 +63,11 @@
         android:id="@+id/endRunBT"
         android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_marginTop="84dp"
+        android:onClick="onStopRun"
         android:text="Lauf beenden"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stop_continue" />
-
-    <Button
-        android:id="@+id/stop_continue"
-        android:layout_width="140dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="56dp"
-        android:text="Stop/Continue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeCurrent" />
+        tools:layout_editor_absoluteY="451dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

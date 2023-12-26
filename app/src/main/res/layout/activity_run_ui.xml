@@ -63,11 +63,12 @@
         android:id="@+id/endRunBT"
         android:layout_width="140dp"
         android:layout_height="60dp"
+        android:layout_marginTop="40dp"
         android:onClick="onStopRun"
         android:text="Lauf beenden"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="451dp" />
+        app:layout_constraintTop_toBottomOf="@+id/timeCurrent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

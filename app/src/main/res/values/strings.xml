@@ -10,8 +10,11 @@
     <string name="run_goal_distance">Goal distance</string>
     <string name="run_goal_number_low">Run goal is too low.</string>
     <string name="run_abort">Are you sure you want to stop the run?</string>
+    <string name="gps_permissions_not_granted">You need to grant GPS permissions under app settings.</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="ok">Ok</string>
+    <string name="go_to_settings">Go to app settings</string>
     <string-array name="gender_values">
         <item>Male</item>
         <item>Female</item>

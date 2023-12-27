@@ -1,11 +1,14 @@
 package com.chryfi.jogjoy;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.SQLException;
 import android.location.Location;
 
+import com.chryfi.jogjoy.data.GPSPoint;
+import com.chryfi.jogjoy.data.tables.GPSTable;
 import com.google.android.gms.location.Granularity;
 import com.google.android.gms.location.LocationRequest;
 
@@ -14,6 +17,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -36,6 +40,7 @@ public class RunActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("onCreate()");
         this.setContentView(R.layout.activity_run_ui);
 
         Intent intent = this.getIntent();
@@ -89,6 +94,7 @@ public class RunActivity extends AppCompatActivity {
 
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
+
         /* check if app has the gps permissions, if not request them from the user */
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -112,16 +118,33 @@ public class RunActivity extends AppCompatActivity {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
                 super.onLocationResult(locationResult);
-
-                for (Location location : locationResult.getLocations()) {
-                    System.out.println("lat " + location.getLatitude() + " long: " + location.getLongitude());
-                }
+                onLocationUpdate(locationResult);
             }
         };
 
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+        fusedLocationClient.requestLocationUpdates(locationRequest, this.locationCallback, Looper.getMainLooper());
+    }
+
+    private void onLocationUpdate(@NonNull LocationResult locationResult) {
+        TextView currentDistance = this.findViewById(R.id.distanceCurrent);
+
+        for (Location location : locationResult.getLocations()) {
+            GPSPoint point = new GPSPoint(activeRun.getId(), location.getTime(), location.getLongitude(), location.getLatitude());
+            activeRun.addGPSpoint(point);
+
+            String text = this.getResources().getString(R.string.distance);
+            currentDistance.setText(text + " " + PathCalculator.calculatePathLength(activeRun.getGpspoints()));
+
+            System.out.println(point.getLatitude() + " " + point.getLongitude());
+
+            try (GPSTable table = new GPSTable(this)) {
+                table.insertGPSPoint(point);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void askPermissions() {

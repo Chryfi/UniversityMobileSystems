@@ -55,7 +55,7 @@ public class RunTable extends SQLiteOpenHelper {
     }
 
     /**
-     * Inserts the run.
+     * Inserts the run. See {@link GPSTable} to insert the points.
      * @param run
      * @return true if the insertion was successful.
      */

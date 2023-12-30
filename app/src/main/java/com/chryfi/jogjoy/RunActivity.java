@@ -32,6 +32,8 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 
+import java.text.DecimalFormat;
+
 public class RunActivity extends AppCompatActivity {
     private Run activeRun;
     private LocationCallback locationCallback;
@@ -40,7 +42,6 @@ public class RunActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("onCreate()");
         this.setContentView(R.layout.activity_run_ui);
 
         Intent intent = this.getIntent();
@@ -76,6 +77,11 @@ public class RunActivity extends AppCompatActivity {
 
             return;
         }
+
+        /* set 0 as the initial distance so the user does not see the placeholder */
+        TextView currentDistance = this.findViewById(R.id.distanceCurrent);
+        String text = this.getResources().getString(R.string.distance);
+        currentDistance.setText(String.format(text, "0"));
 
         /* intercept back button and ask the user if they really want to stop the run */
         AlertDialog.Builder alert = new AlertDialog.Builder(this)
@@ -131,13 +137,17 @@ public class RunActivity extends AppCompatActivity {
         TextView currentDistance = this.findViewById(R.id.distanceCurrent);
 
         for (Location location : locationResult.getLocations()) {
-            GPSPoint point = new GPSPoint(activeRun.getId(), location.getTime(), location.getLongitude(), location.getLatitude());
-            activeRun.addGPSpoint(point);
+            /* approximation so distance does not increase by GPS inaccuracies over time */
+            double longitude = Math.round(location.getLongitude() * 10000D) / 10000D;
+            double latitude = Math.round(location.getLatitude() * 10000D) / 10000D;
+            GPSPoint point = new GPSPoint(this.activeRun.getId(), location.getTime(), longitude, latitude);
+            this.activeRun.addGPSpoint(point);
 
             String text = this.getResources().getString(R.string.distance);
-            currentDistance.setText(text + " " + PathCalculator.calculatePathLength(activeRun.getGpspoints()));
+            double path = PathCalculator.calculatePathLength(activeRun.getGpspoints()) / 1000D;
+            DecimalFormat format = new DecimalFormat("0.##");
 
-            System.out.println(point.getLatitude() + " " + point.getLongitude());
+            currentDistance.setText(String.format(text, format.format(path)));
 
             try (GPSTable table = new GPSTable(this)) {
                 table.insertGPSPoint(point);

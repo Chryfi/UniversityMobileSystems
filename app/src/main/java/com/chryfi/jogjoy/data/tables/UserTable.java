@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class UserTable extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "user";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
     private static final String USERNAME_COL = "username";
     private static final String PASSWORD_COL = "password";
     private static final String HEIGHT_COL = "height";
@@ -44,6 +44,11 @@ public class UserTable extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     *
+     * @param user
+     * @return true if the insertiojn
+     */
     public boolean insertUser(User user) {
         try (SQLiteDatabase db = this.getWritableDatabase()) {
             ContentValues values = new ContentValues();

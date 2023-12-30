@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, RunStartActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             this.startActivity(intent);
+            this.finish();
         }
     }
 

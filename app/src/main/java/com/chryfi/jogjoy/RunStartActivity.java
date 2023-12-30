@@ -8,7 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RunStartActivity extends AppCompatActivity {
-    public final static String RUNGOAL_MESSAGE = "JobJoy.RUNGOALDISTANCE";
+    public final static String RUNGOAL_MESSAGE = "JogJoy.RUNGOALDISTANCE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,10 @@ public class RunStartActivity extends AppCompatActivity {
 
     public void logout(View view) {
         MainActivity.logoutUser();
-        this.startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        /* reset back stack so the user can't go back to the run activity when logging out */
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        this.startActivity(intent);
         this.finish();
     }
 

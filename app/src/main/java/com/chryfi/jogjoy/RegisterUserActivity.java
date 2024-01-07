@@ -155,6 +155,9 @@ public class RegisterUserActivity extends AppCompatActivity {
             password0.setError(this.getResources().getString(R.string.password_no_match));
             password1.setError(this.getResources().getString(R.string.password_no_match));
             noError = false;
+        } else if (password0.getText().toString().length() <= 5) {
+            password0.setError(this.getResources().getString(R.string.invalid_password));
+            password1.setError(this.getResources().getString(R.string.invalid_password));
         }
 
         /* validate number ranges */

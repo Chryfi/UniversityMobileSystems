@@ -6,159 +6,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/container5"
-        android:layout_width="354dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/ic_launcher_foreground"
-        android:padding="8dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container4" />
-
-    <TextView
-        android:id="@+id/goal7"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="56dp"
-        android:text="@string/goal_seven"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container5"
-        app:layout_constraintEnd_toStartOf="@+id/distance2"
-        app:layout_constraintTop_toTopOf="@+id/container5" />
-
-    <TextView
-        android:id="@+id/time5"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="72dp"
-        android:text="@string/time_five"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container5"
-        app:layout_constraintStart_toEndOf="@+id/distance2"
-        app:layout_constraintTop_toTopOf="@+id/container5" />
-
-    <EditText
-        android:id="@+id/runOne5"
-        android:layout_width="17dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="4dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="3"
-        app:layout_constraintEnd_toStartOf="@+id/container5"
-        app:layout_constraintTop_toBottomOf="@+id/runOne4" />
-
-    <TextView
-        android:id="@+id/distance2"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:text="@string/distance_two"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container5"
-        app:layout_constraintEnd_toEndOf="@+id/container5"
-        app:layout_constraintStart_toStartOf="@+id/container5"
-        app:layout_constraintTop_toTopOf="@+id/container5" />
-
-    <TextView
-        android:id="@+id/container4"
-        android:layout_width="354dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/ic_launcher_foreground"
-        android:padding="8dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container1" />
-
-    <TextView
-        android:id="@+id/goal6"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="56dp"
-        android:text="@string/goal_six"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container4"
-        app:layout_constraintEnd_toStartOf="@+id/distance"
-        app:layout_constraintTop_toTopOf="@+id/container4" />
-
-    <TextView
-        android:id="@+id/time4"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="72dp"
-        android:text="@string/time_four"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container4"
-        app:layout_constraintStart_toEndOf="@+id/distance"
-        app:layout_constraintTop_toTopOf="@+id/container4" />
-
-    <EditText
-        android:id="@+id/runOne4"
-        android:layout_width="16dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="4dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="2"
-        app:layout_constraintEnd_toStartOf="@+id/container4"
-        app:layout_constraintTop_toBottomOf="@+id/runOne" />
-
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:text="@string/distance_three"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container4"
-        app:layout_constraintEnd_toEndOf="@+id/container4"
-        app:layout_constraintStart_toStartOf="@+id/container4"
-        app:layout_constraintTop_toTopOf="@+id/container4" />
-
-    <TextView
-        android:id="@+id/goal"
-        android:layout_width="45dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="52dp"
-        android:text="@string/goal_header"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/distance3"
-        app:layout_constraintTop_toBottomOf="@+id/recentRun" />
-
-    <TextView
-        android:id="@+id/distance3"
-        android:layout_width="79dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/distance_header"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recentRun" />
-
-    <TextView
-        android:id="@+id/goalOne6"
-        android:layout_width="52dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/time_header"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/distance3"
-        app:layout_constraintTop_toBottomOf="@+id/recentRun" />
-
-    <TextView
         android:id="@+id/logoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/logo_name"
+        android:text="@string/app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -175,9 +28,9 @@
 
     <TextView
         android:id="@+id/recentRun"
-        android:layout_width="171dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="@string/recent_runs"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -186,7 +39,7 @@
 
     <Button
         android:id="@+id/startRun"
-        android:layout_width="100dp"
+        android:layout_width="95dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:onClick="startRun"
@@ -196,74 +49,15 @@
         app:layout_constraintTop_toBottomOf="@+id/run_goal" />
 
     <TextView
-        android:id="@+id/container1"
-        android:layout_width="354dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="76dp"
-        android:background="@drawable/ic_launcher_foreground"
-        android:padding="8dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recentRun" />
-
-    <TextView
-        android:id="@+id/goal1"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:text="@string/goal_one"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container1"
-        app:layout_constraintEnd_toEndOf="@+id/container1"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="@+id/container1"
-        app:layout_constraintTop_toTopOf="@+id/container1" />
-
-    <TextView
-        android:id="@+id/distance1"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:text="@string/distance_one"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container1"
-        app:layout_constraintEnd_toEndOf="@+id/container1"
-        app:layout_constraintHorizontal_bias="0.131"
-        app:layout_constraintStart_toStartOf="@+id/container1"
-        app:layout_constraintTop_toTopOf="@+id/container1" />
-
-    <TextView
-        android:id="@+id/time1"
-        android:layout_width="49dp"
-        android:layout_height="29dp"
-        android:text="@string/time_one"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/container1"
-        app:layout_constraintEnd_toEndOf="@+id/container1"
-        app:layout_constraintHorizontal_bias="0.881"
-        app:layout_constraintStart_toStartOf="@+id/container1"
-        app:layout_constraintTop_toTopOf="@+id/container1" />
-
-    <EditText
-        android:id="@+id/runOne"
-        android:layout_width="15dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="4dp"
-        android:inputType="number"
-        android:text="1"
-        app:layout_constraintEnd_toStartOf="@+id/container1"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/newRun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
         android:text="@string/start_new_run"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container5" />
+        app:layout_constraintTop_toBottomOf="@+id/recent_runs_scroll" />
 
     <EditText
         android:id="@+id/run_goal"
@@ -276,6 +70,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newRun" />
+
+    <ScrollView
+        android:id="@+id/recent_runs_scroll"
+        android:layout_width="330dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recentRun">
+
+        <LinearLayout
+            android:id="@+id/runs_scroll_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

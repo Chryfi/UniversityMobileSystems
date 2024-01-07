@@ -75,16 +75,16 @@ public class DatabaseUnitTest {
             /* deletion */
             for (GPSPoint point : run.getGpspoints()) {
                 System.out.println("Testing deletion of gps point.");
-                assertTrue(gpsTable.deleteGPSPoint(point.getRunid(), point.getTimestamp()));
+                assertTrue(gpsTable.deleteGPSPoint(point));
                 assertFalse(gpsTable.getGPSPoint(point.getRunid(), point.getTimestamp()).isPresent());
             }
 
             System.out.println("Testing deletion of run.");
-            assertTrue(runTable.deleteRun(run.getId(), username));
+            assertTrue(runTable.deleteRun(run));
             assertFalse(runTable.getRunById(run.getId()).isPresent());
 
             System.out.println("Testing deletion of user.");
-            assertTrue(userTable.deleteUser(username));
+            assertTrue(userTable.deleteUser(user));
             assertFalse(userTable.getUserByUsername(username).isPresent());
         } catch (SQLException e) {
             e.printStackTrace();

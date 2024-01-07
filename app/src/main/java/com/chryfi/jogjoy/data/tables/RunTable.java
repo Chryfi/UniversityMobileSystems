@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import com.chryfi.jogjoy.data.GPSPoint;
 import com.chryfi.jogjoy.data.Run;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 public class RunTable extends SQLiteOpenHelper {
@@ -42,16 +45,6 @@ public class RunTable extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
-    }
-
-    public boolean deleteRun(long runid, String username) {
-        try (SQLiteDatabase db = this.getWritableDatabase()) {
-            return db.delete(TABLE_NAME, USERNAME_COL + "=? AND " + ID_COL + "=?",
-                    new String[]{username, String.valueOf(runid)}) != 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     /**
@@ -92,10 +85,57 @@ public class RunTable extends SQLiteOpenHelper {
             float goal = cursor.getFloat(cursor.getColumnIndexOrThrow(GOAL_COL));
             String username = cursor.getString(cursor.getColumnIndexOrThrow(USERNAME_COL));
 
+            cursor.close();
+
             return Optional.of(new Run(id, goal, username, gpsTable.getGPSPoints(id)));
         } catch (SQLException e) {
             e.printStackTrace();
             return Optional.empty();
+        }
+    }
+
+    /**
+     *
+     * @param run
+     * @return true if a row was deleted, false if no row was deleted.
+     */
+    public boolean deleteRun(Run run) {
+        try (SQLiteDatabase db = this.getReadableDatabase()) {
+            int cursor = db.delete(TABLE_NAME, ID_COL + "=?", new String[]{String.valueOf(run.getId())});
+
+            return cursor != 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public List<Run> getRunsDescTime(String username) {
+        try (SQLiteDatabase db = this.getReadableDatabase();
+             GPSTable gpsTable = new GPSTable(this.context)) {
+            Cursor cursor = db.query(TABLE_NAME, null,
+                    USERNAME_COL + "=?", new String[]{username},
+                    null, null, null);
+
+            if (cursor == null) return new ArrayList<>();
+
+            List<Run> runs = new ArrayList<>();
+
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow(ID_COL));
+                float goal = cursor.getFloat(cursor.getColumnIndexOrThrow(GOAL_COL));
+                runs.add(new Run(id, goal, username, gpsTable.getGPSPoints(id)));
+            }
+
+            cursor.close();
+
+            /* sort descending by timestamp of each run's first gps point (start of the run) */
+            runs.sort(Comparator.comparingLong(element -> -element.getGpspoints().get(0).getTimestamp()));
+
+            return runs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 }

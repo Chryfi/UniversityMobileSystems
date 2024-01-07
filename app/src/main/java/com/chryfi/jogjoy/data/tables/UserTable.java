@@ -93,12 +93,12 @@ public class UserTable extends SQLiteOpenHelper {
     }
 
     /**
-     * @param username
+     * @param user
      * @return true if a user was deleted. false if nothing was deleted.
      */
-    public boolean deleteUser(String username) {
+    public boolean deleteUser(User user) {
         try (SQLiteDatabase db = this.getWritableDatabase()){
-            return db.delete(TABLE_NAME, USERNAME_COL + "=?", new String[]{username}) != 0;
+            return db.delete(TABLE_NAME, USERNAME_COL + "=?", new String[]{user.getUsername()}) != 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

@@ -64,14 +64,13 @@ public class GPSTable extends SQLiteOpenHelper {
 
     /**
      *
-     * @param runid
-     * @param timestamp
+     * @param point
      * @return
      */
-    public boolean deleteGPSPoint(long runid, long timestamp) {
+    public boolean deleteGPSPoint(GPSPoint point) {
         try (SQLiteDatabase db = this.getWritableDatabase()) {
             return db.delete(TABLE_NAME, RUNID_COL + "=? AND " + TIMESTAMP_COL + "=?",
-                    new String[]{String.valueOf(runid), String.valueOf(timestamp)}) != 0;
+                    new String[]{String.valueOf(point.getRunid()), String.valueOf(point.getTimestamp())}) != 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

@@ -7,7 +7,7 @@
     <string name="password_repeat">Repeat password</string>
     <string name="weight">Weight</string>
     <string name="height">Height</string>
-    <string name="run_goal_distance">Goal distance</string>
+    <string name="run_goal_distance">Goal distance in km</string>
     <string name="run_goal_number_low">Run goal is too low.</string>
     <string name="run_abort">Are you sure you want to stop the run?</string>
     <string name="gps_permissions_not_granted">You need to grant GPS permissions under app settings.</string>
@@ -16,6 +16,7 @@
     <string name="ok">Ok</string>
     <string name="go_to_settings">Go to app settings</string>
     <string name="distance">Distance %1$s km</string>
+    <string name="run_element">%1$s, time %2$s\ndistance %3$skm of %4$skm</string>
     <string-array name="gender_values">
         <item>Male</item>
         <item>Female</item>
@@ -28,35 +29,13 @@
     <string name="not_a_number">The given input is not a number.</string>
     <string name="input_missing">You need to provide an input.</string>
     <string name="login_pw_name_fail">Username or password is wrong.</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="recent_run_Title">"Vergangene Läufe</string>
-    <string name="goal_seven">"5 km"</string>
-    <string name="time_five">"20 min"</string>
-    <string name="distance_two">5 km</string>
-    <string name="goal_six">5 km</string>
-    <string name="time_four">20 min</string>
-    <string name="distance_header">Distance</string>
-    <string name="distance_three">5 km</string>
-    <string name="goal_header">Goal</string>
-    <string name="time_header">Time</string>
-    <string name="logo_name">JogJoy</string>
     <string name="logout">Log out</string>
     <string name="recent_runs">Recent runs</string>
     <string name="start_run">Start</string>
-    <string name="goal_one">5 km</string>
-    <string name="distance_one">5 km</string>
-    <string name="time_one">20 min</string>
     <string name="start_new_run">Start new run</string>
     <string name="login_user">Login</string>
-    <string name="goal_distance">Goal: 5 km</string>
-    <string name="actual_time">Time:</string>
+    <string name="goal_distance">Goal: %1$s km</string>
+    <string name="actual_time">Time: %1$s</string>
     <string name="end_run">End run</string>
 </resources>

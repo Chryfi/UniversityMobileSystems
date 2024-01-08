@@ -39,13 +39,24 @@ public class RunStartActivity extends AppCompatActivity {
                 } catch (NumberFormatException e) { }
             }
         });
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        /*
+         * when the user comes back from the run activity, the list needs to be updated
+         * onResume() is also called after onCreate()
+         */
         this.listRuns();
     }
 
     private void listRuns() {
         try (RunTable runTable = new RunTable(this)) {
             List<Run> runs = runTable.getRunsDescTime(MainActivity.getLoggedinUsername());
+            /* clear it in case the list is updated */
+            LinearLayout scrollView = this.findViewById(R.id.runs_scroll_linear);
+            scrollView.removeAllViews();
 
             for (Run run : runs) {
                 List<GPSPoint> points = run.getGpspoints();
@@ -64,7 +75,7 @@ public class RunStartActivity extends AppCompatActivity {
                         dateFormat.format(points.get(0).getTimestamp()), timeFormat.format(time),
                         format.format(path), format.format(run.getGoal())));
 
-                LinearLayout scrollView = this.findViewById(R.id.runs_scroll_linear);
+
                 scrollView.addView(runText);
             }
         } catch (SQLException e) {

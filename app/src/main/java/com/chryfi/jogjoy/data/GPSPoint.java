@@ -3,7 +3,7 @@ package com.chryfi.jogjoy.data;
 import java.util.Objects;
 
 public class GPSPoint {
-    private final long runid;
+    private long runid;
     private long timestamp;
     private double longitude;
     private double latitude;
@@ -17,6 +17,10 @@ public class GPSPoint {
 
     public long getRunid() {
         return this.runid;
+    }
+
+    public void setRunid(long runid) {
+        this.runid = runid;
     }
 
     public long getTimestamp() {

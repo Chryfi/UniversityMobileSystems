@@ -91,6 +91,10 @@ public class Run {
                 ));
     }
 
+    /**
+     * @return a copy of the list holding the gps points.
+     *         The gps points are sorted in ascending order by the timestamps.
+     */
     public List<GPSPoint> getGpspoints() {
         return new ArrayList<>(this.gpspoints.values());
     }

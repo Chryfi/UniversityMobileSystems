@@ -32,7 +32,7 @@ android {
 }
 
 dependencies {
-
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.28")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")

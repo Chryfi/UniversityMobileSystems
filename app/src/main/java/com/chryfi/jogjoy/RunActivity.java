@@ -250,6 +250,10 @@ public class RunActivity extends AppCompatActivity {
         ProgressBar progressBar = this.findViewById(R.id.progressBar);
         progressBar.setProgress((int) (Double.valueOf(currentDistanceValue) * 100));
 
+        if (Double.valueOf(currentDistanceValue) >= this.goal) {
+            this.findViewById(R.id.cat_success).setVisibility(View.VISIBLE);
+        }
+
         /* the first inserted GPS location starts the timer */
         if (!this.timerStarted) {
             this.timerStarted = true;

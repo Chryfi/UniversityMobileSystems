@@ -135,7 +135,8 @@ public class RunActivity extends AppCompatActivity {
         goalDistance.setText(String.format(goalDistanceText, String.valueOf(goal)));
 
         ProgressBar progressBar = this.findViewById(R.id.progressBar);
-        progressBar.setMax(Math.round(goal));
+        /* goal has maximum 2 decimal places */
+        progressBar.setMax((int) goal * 100);
     }
 
     /**
@@ -202,7 +203,7 @@ public class RunActivity extends AppCompatActivity {
         currentDistance.setText(String.format(currentDistanceText, format.format(path)));
 
         ProgressBar progressBar = this.findViewById(R.id.progressBar);
-        progressBar.setProgress((int) Math.round(path));
+        progressBar.setProgress(Double.valueOf(format.format(path)).);
 
         if (!this.timerStarted) {
             this.timerStarted = true;

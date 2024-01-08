@@ -17,13 +17,22 @@ import com.chryfi.jogjoy.data.tables.UserTable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This activity provides login and register buttons.
+ */
 public class MainActivity extends AppCompatActivity {
+    /**
+     * This stores the username when the user logs in.
+     */
     private static String loggedInUsername = "";
 
     public static String getLoggedinUsername() {
         return loggedInUsername;
     }
 
+    /**
+     * This only clears the stored username.
+     */
     public static void logoutUser() {
         loggedInUsername = "";
     }
@@ -38,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         this.setContentView(R.layout.activity_main);
 
         /*
-         * app was brought back from background with logged in user
-         * return to logged in start activity
+         * main activity can't be accessed when the user is logged in
+         * start the RunStartActivity and clear the back-stack so the user cannot return.
          */
         if (!MainActivity.getLoggedinUsername().isEmpty()) {
             Intent intent = new Intent(this, RunStartActivity.class);
@@ -49,10 +58,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Event method for the UI
+     * @param view
+     */
     public void onRegister(View view) {
         this.startActivity(new Intent(this, RegisterUserActivity.class));
     }
 
+    /**
+     * Event method for the UI
+     * @param view
+     */
     public void onLogin(View view) {
         this.startActivity(new Intent(this, LoginUserActivity.class));
     }

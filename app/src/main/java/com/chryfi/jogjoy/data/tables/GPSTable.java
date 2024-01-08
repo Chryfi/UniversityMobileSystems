@@ -45,6 +45,11 @@ public class GPSTable extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Insert the provided GPSPoint into the table.
+     * @param gpsPoint
+     * @return true if the gps point was inerted successfully.
+     */
     public boolean insertGPSPoint(GPSPoint gpsPoint) {
         try (SQLiteDatabase db = this.getWritableDatabase()) {
             ContentValues values = new ContentValues();
@@ -63,9 +68,10 @@ public class GPSTable extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Delete the provided GPSPoint.
      * @param point
-     * @return
+     * @return true if the gps point was deleted.
+     *         False if there was never such a point or if the database didn't succeed.
      */
     public boolean deleteGPSPoint(GPSPoint point) {
         try (SQLiteDatabase db = this.getWritableDatabase()) {
@@ -78,9 +84,10 @@ public class GPSTable extends SQLiteOpenHelper {
     }
 
     /**
+     * Read the GPSPoint from the database.
      * @param runid
      * @param timestamp
-     * @return returns the GPS point with the given run id and timestamp.
+     * @return returns the GPSPoint with the given run id and timestamp.
      */
     public Optional<GPSPoint> getGPSPoint(long runid, long timestamp) {
         try (SQLiteDatabase db = this.getReadableDatabase()) {
@@ -104,8 +111,8 @@ public class GPSTable extends SQLiteOpenHelper {
 
     /**
      * @param runid
-     * @return returns a list of gps points in ascending order sorted by timestamp.
-     * Returns an empty list if nothing was found.
+     * @return returns a list of GPSPoints in ascending order sorted by timestamp.
+     *         Returns an empty list if nothing was found.
      */
     public List<GPSPoint> getGPSPoints(long runid) {
         try (SQLiteDatabase db = this.getReadableDatabase()) {

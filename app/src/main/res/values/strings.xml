@@ -5,8 +5,8 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="password_repeat">Repeat password</string>
-    <string name="weight">Weight</string>
-    <string name="height">Height</string>
+    <string name="weight">Weight in kg</string>
+    <string name="height">Height in cm</string>
     <string name="run_goal_distance">Goal distance in km</string>
     <string name="run_goal_number_low">Run goal is too low.</string>
     <string name="run_abort">Are you sure you want to stop the run?</string>
@@ -17,6 +17,8 @@
     <string name="go_to_settings">Go to app settings</string>
     <string name="distance">Distance %1$s km</string>
     <string name="run_element">%1$s, time %2$s\ndistance %3$skm of %4$skm</string>
+    <string name="run_goal_achieved">Congratulations, you achieved your run goal!</string>
+    <string name="run_goal_not_achieved">Try harder next time!</string>
     <string-array name="gender_values">
         <item>Male</item>
         <item>Female</item>

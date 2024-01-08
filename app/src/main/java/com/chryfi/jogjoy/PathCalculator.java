@@ -8,6 +8,14 @@ import java.util.List;
 public class PathCalculator {
     private static final double EARTH_RADIUS = 6371000;
 
+    /**
+     * Calculates the distance on a sphere with longitude and latitude coordinates.
+     * @param lat1
+     * @param lon1
+     * @param lat2
+     * @param lon2
+     * @return distance in meters between two points on a sphere.
+     */
     public static double haversine(double lat1, double lon1, double lat2, double lon2) {
         lat1 = Math.toRadians(lat1);
         lon1 = Math.toRadians(lon1);
@@ -22,6 +30,10 @@ public class PathCalculator {
         return EARTH_RADIUS * c;
     }
 
+    /**
+     * @param coordinates list of gps points
+     * @return total distance in meters of all spherical coordinates.
+     */
     public static double calculatePathLength(List<GPSPoint> coordinates) {
         double totalLength = 0;
 

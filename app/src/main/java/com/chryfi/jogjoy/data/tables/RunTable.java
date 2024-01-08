@@ -73,6 +73,10 @@ public class RunTable extends SQLiteOpenHelper {
         return false;
     }
 
+    /**
+     * @param id
+     * @return the Run with the id, if present.
+     */
     public Optional<Run> getRunById(long id) {
         try (SQLiteDatabase db = this.getReadableDatabase();
              GPSTable gpsTable = new GPSTable(this.context)) {
@@ -95,7 +99,7 @@ public class RunTable extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Delete the provided Run.
      * @param run
      * @return true if a row was deleted, false if no row was deleted.
      */
@@ -110,6 +114,10 @@ public class RunTable extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * @param username
+     * @return a list of runs sorted descending by the first GPSPoint timestamp.
+     */
     public List<Run> getRunsDescTime(String username) {
         try (SQLiteDatabase db = this.getReadableDatabase();
              GPSTable gpsTable = new GPSTable(this.context)) {

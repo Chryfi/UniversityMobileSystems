@@ -21,7 +21,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Provides a list of recent runs and the functionality to start a new run.
+ */
 public class RunStartActivity extends AppCompatActivity {
+    /**
+     * Message key when sending the goal input to the RunActivity.
+     */
     public final static String RUNGOAL_MESSAGE = "JogJoy.RUNGOALDISTANCE";
 
     @Override
@@ -31,7 +37,10 @@ public class RunStartActivity extends AppCompatActivity {
 
         EditText runGoal = this.findViewById(R.id.run_goal);
 
-        /* event listeners when the user finished typing the text to round it */
+        /*
+         * focusChangeListener is triggered when the user enters or exits the text element.
+         * Input gets rounded when exiting, prevent too many decimal places
+         */
         runGoal.setOnFocusChangeListener((view, hasFocus) -> {
             if (!hasFocus) {
                 try {
@@ -39,6 +48,28 @@ public class RunStartActivity extends AppCompatActivity {
                 } catch (NumberFormatException e) { }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        if (intent.getBooleanExtra(RunActivity.DATABASE_ERROR_MESSAGE, false)) {
+            new AlertDialog.Builder(this)
+                    .setMessage(this.getResources().getString(R.string.database_error))
+                    .show();
+            return;
+        }
+
+        if (intent.getBooleanExtra(RunActivity.RUNGOAL_ACHIEVED_MESSAGE, false)) {
+            new AlertDialog.Builder(this)
+                    .setMessage(this.getResources().getString(R.string.run_goal_achieved))
+                    .show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setMessage(this.getResources().getString(R.string.run_goal_not_achieved))
+                    .show();
+        }
     }
 
     @Override
@@ -51,10 +82,14 @@ public class RunStartActivity extends AppCompatActivity {
         this.listRuns();
     }
 
+    /**
+     * Read runs by the logged in user from the database and insert them into the UI.
+     * Runs are sorted by date descending.
+     */
     private void listRuns() {
         try (RunTable runTable = new RunTable(this)) {
             List<Run> runs = runTable.getRunsDescTime(MainActivity.getLoggedinUsername());
-            /* clear it in case the list is updated */
+            /* clear the run list in case the list is updated */
             LinearLayout scrollView = this.findViewById(R.id.runs_scroll_linear);
             scrollView.removeAllViews();
 
@@ -64,7 +99,7 @@ public class RunStartActivity extends AppCompatActivity {
                 TextView runText = new TextView(this);
                 runText.setBackground(this.getDrawable(R.drawable.border));
                 String runElement = this.getResources().getString(R.string.run_element);
-
+                /* Sets the formatted values for the UI */
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm dd.MM.yyyy", Locale.getDefault());
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
                 DecimalFormat format = new DecimalFormat("0.##");
@@ -75,7 +110,6 @@ public class RunStartActivity extends AppCompatActivity {
                         dateFormat.format(points.get(0).getTimestamp()), timeFormat.format(time),
                         format.format(path), format.format(run.getGoal())));
 
-
                 scrollView.addView(runText);
             }
         } catch (SQLException e) {
@@ -83,25 +117,34 @@ public class RunStartActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Event method for UI when clicking on logout button.
+     * @param view
+     */
     public void logout(View view) {
         MainActivity.logoutUser();
         Intent intent = new Intent(this, MainActivity.class);
-        /* reset back stack so the user can't go back to the run activity when logging out */
+        /* reset back-stack so the user can't go back to the run activity when logging out */
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         this.startActivity(intent);
         this.finish();
     }
 
+    /**
+     * Event method for UI when clicking on start run button.
+     * @param view
+     */
     public void startRun(View view) {
         EditText runGoal = this.findViewById(R.id.run_goal);
 
         if (!this.validateInput()) return;
-        float runGoalValue = Math.round(Float.parseFloat(runGoal.getText().toString()) * 100) / 100F;
+        float runGoalValue = this.roundRunGoal(Float.parseFloat(runGoal.getText().toString()));
+        /* clear run goal, so when the user comes back it's empty */
         runGoal.setText("");
 
         Intent intent = new Intent(this, RunActivity.class);
         intent.putExtra(RUNGOAL_MESSAGE, runGoalValue);
-        this.startActivity(intent);
+        this.startActivityForResult(intent, 0);
     }
 
     /**

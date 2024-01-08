@@ -39,9 +39,25 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * This activity monitors the active run and provides live feedback.
+ */
 public class RunActivity extends AppCompatActivity {
+    /**
+     * The current run instance.
+     */
     private Run activeRun;
+    /**
+     * The current run goal in km with 2 decimal places.
+     */
+    private float goal;
+    /**
+     * Handles the timer
+     */
     private Handler timerHandler;
+    /**
+     * Stores the method to execute for the timer
+     */
     private Runnable timerRunnable;
     /**
      * To account for race condition with gps updates.
@@ -49,8 +65,24 @@ public class RunActivity extends AppCompatActivity {
      */
     private boolean timerStarted = false;
     private final SimpleDateFormat timerFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+    /**
+     * Stores the method to execute for the regular gps updates.
+     */
     private LocationCallback locationCallback;
+    /**
+     * Request code for the gps permissions to identify them.
+     */
     public static final int GPS_PERMISSION_REQUEST = 123;
+    /**
+     * The message is a boolean whether the run goal was achieved.
+     */
+    public final static String RUNGOAL_ACHIEVED_MESSAGE = "JogJoy.RUNGOAL_ACHIEVED";
+    /**
+     * The message is a boolean whether there was
+     * an error when inserting the run and gps points into the database.
+     */
+    public final static String DATABASE_ERROR_MESSAGE = "JogJoy.DATABASE_ERROR";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +90,10 @@ public class RunActivity extends AppCompatActivity {
         this.setContentView(R.layout.activity_run_ui);
 
         Intent intent = this.getIntent();
-        float goal = intent.getFloatExtra(RunStartActivity.RUNGOAL_MESSAGE, 0.0F);
+        this.goal = intent.getFloatExtra(RunStartActivity.RUNGOAL_MESSAGE, 0.0F);
 
         /* with a goal of 0, stop this activity as goal of 0 does not make sense */
-        if (goal == 0.0F) this.finish();
+        if (this.goal == 0.0F) this.finish();
 
         /* setup timer */
         this.timerHandler = new Handler(this.getMainLooper());
@@ -75,6 +107,7 @@ public class RunActivity extends AppCompatActivity {
                 String timerTextString = getResources().getString(R.string.actual_time);
                 timerTextView.setText(String.format(timerTextString, timerFormat.format(millis)));
 
+                /* timer starts itself again in 500ms */
                 if (timerStarted) timerHandler.postDelayed(this, 500);
             }
         };
@@ -94,22 +127,24 @@ public class RunActivity extends AppCompatActivity {
                 alert.show();
             }
         };
-
+        /* here the back button is intercepted. */
         this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         /* check if app has the gps permissions, if not request them from the user */
         if (!this.hasGPSPermission()) {
-            /* when the user declined the permission, the request ui cannot be shown again */
+            /*
+             * when the user has declined the permission in the past,
+             * the default android request prompt cannot be shown again
+             */
             if (this.shouldShowRequestPermissionRationale(android.Manifest.permission.ACCESS_FINE_LOCATION)) {
                 this.offerAppSettings();
             } else {
+                /* show android request prompt */
                 this.askPermissions();
             }
         } else {
             /*
-             * when the user needs to grant permissions,
-             * we need to request location when the permissions have been updated.
-             * This request is only possible when permissions have already been granted in the past.
+             * Permissions have been granted in the past -> request location updates.
              */
             this.requestCurrentLocation();
             this.requestLocationUpdates();
@@ -118,24 +153,24 @@ public class RunActivity extends AppCompatActivity {
 
     private void setupUI() {
         Intent intent = this.getIntent();
-        float goal = intent.getFloatExtra(RunStartActivity.RUNGOAL_MESSAGE, 0.0F);
 
         /* set 0 as the initial distance so the user does not see the placeholder */
         TextView currentDistance = this.findViewById(R.id.distanceCurrent);
         String currentDistanceText = this.getResources().getString(R.string.distance);
         currentDistance.setText(String.format(currentDistanceText, "0"));
 
+        /* set the timer to 0 state so the user does not see the placeholder */
         TextView timer = this.findViewById(R.id.timeCurrent);
         String timerText = this.getResources().getString(R.string.actual_time);
         timer.setText(String.format(timerText, this.timerFormat.format(0)));
 
-        /* set goal distance */
+        /* set the user defined goal distance */
         TextView goalDistance = this.findViewById(R.id.goalDistance);
         String goalDistanceText = this.getResources().getString(R.string.goal_distance);
-        goalDistance.setText(String.format(goalDistanceText, String.valueOf(goal)));
+        goalDistance.setText(String.format(goalDistanceText, String.valueOf(this.goal)));
 
         ProgressBar progressBar = this.findViewById(R.id.progressBar);
-        /* goal has maximum 2 decimal places */
+        /* goal has maximum 2 decimal places, which need to be turned into an integer. */
         progressBar.setMax((int) (goal * 100));
     }
 
@@ -172,6 +207,7 @@ public class RunActivity extends AppCompatActivity {
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
                 .build();
 
+        /* the method to be called for each gps update */
         this.locationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(@NonNull LocationResult locationResult) {
@@ -186,8 +222,15 @@ public class RunActivity extends AppCompatActivity {
         fusedLocationClient.requestLocationUpdates(locationRequest, this.locationCallback, Looper.getMainLooper());
     }
 
+    /**
+     * Adds the provided location to the {@link #activeRun}.
+     * @param location
+     */
     private void addLocation(Location location) {
-        /* approximation so distance does not increase by GPS inaccuracies over time */
+        /*
+         * approximation so the distance does not increase
+         * due to GPS inaccuracies over time when standing still
+         */
         double longitude = Math.round(location.getLongitude() * 10000D) / 10000D;
         double latitude = Math.round(location.getLatitude() * 10000D) / 10000D;
         GPSPoint point = new GPSPoint(this.activeRun.getId(), System.currentTimeMillis(), longitude, latitude);
@@ -195,6 +238,7 @@ public class RunActivity extends AppCompatActivity {
         this.activeRun.addGPSpoint(point);
         System.out.println("Captured GPS point " + point);
 
+        /* update UI distance text and progressbar*/
         double path = PathCalculator.calculatePathLength(this.activeRun.getGpspoints()) / 1000D;
 
         TextView currentDistance = this.findViewById(R.id.distanceCurrent);
@@ -206,12 +250,16 @@ public class RunActivity extends AppCompatActivity {
         ProgressBar progressBar = this.findViewById(R.id.progressBar);
         progressBar.setProgress((int) (Double.valueOf(currentDistanceValue) * 100));
 
+        /* the first inserted GPS location starts the timer */
         if (!this.timerStarted) {
             this.timerStarted = true;
             this.timerHandler.postDelayed(this.timerRunnable, 0);
         }
     }
 
+    /**
+     * Show the permission prompt so the user grants the required permissions.
+     */
     private void askPermissions() {
         ActivityCompat.requestPermissions(this,
                 new String[]{"android.permission.ACCESS_FINE_LOCATION",
@@ -240,6 +288,7 @@ public class RunActivity extends AppCompatActivity {
     }
 
     /**
+     * This method is called when permissions have been updated.
      * When the user declines the GPS permission, the user should be reminded, that the app won't work properly
      * and exit out of the run activity.
      */
@@ -264,51 +313,80 @@ public class RunActivity extends AppCompatActivity {
             return;
         }
 
+        /* user declined the permissions request - offer to open app settings */
         this.offerAppSettings();
     }
 
+    /**
+     * Event method called by stop run button.
+     * @param view
+     */
     public void onStopRun(View view) {
         this.stopRun();
     }
 
     public void stopRun() {
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.removeLocationUpdates(this.locationCallback);
-        this.timerHandler.removeCallbacks(this.timerRunnable);
+        this.cleanUpTasks();
 
+        boolean dbError = false;
+        /*
+         * Insert run and gps points into the database, only if there are 2 gps points minimum.
+         */
         try (RunTable runTable = new RunTable(this);
              GPSTable gpsTable = new GPSTable(this)) {
             if (this.activeRun.getGpspoints().size() >= 2) {
-                if (!runTable.insertRun(this.activeRun)) return;
-
-                for (GPSPoint point : this.activeRun.getGpspoints()) {
-                    point.setRunid(this.activeRun.getId());
-                }
-
-                int i = 0;
-                for (GPSPoint point : this.activeRun.getGpspoints()) {
-                    if (gpsTable.insertGPSPoint(point)) {
-                        i++;
-                    }
-                }
-
-                /*
-                 * not enough points were inserted,
-                 * delete everything to ensure correct constraints
-                 */
-                if (i < 2) {
-                    runTable.deleteRun(this.activeRun);
-
+                if (runTable.insertRun(this.activeRun)) {
+                    /* run id is only available after inserting run into database */
                     for (GPSPoint point : this.activeRun.getGpspoints()) {
-                        gpsTable.deleteGPSPoint(point);
+                        point.setRunid(this.activeRun.getId());
                     }
+
+                    /* insert the gps points and count how many were successfully inserted */
+                    int i = 0;
+                    for (GPSPoint point : this.activeRun.getGpspoints()) {
+                        if (gpsTable.insertGPSPoint(point)) {
+                            i++;
+                        }
+                    }
+
+                    /*
+                     * not enough points were inserted,
+                     * delete everything to ensure correct constraints
+                     */
+                    if (i < 2) {
+                        runTable.deleteRun(this.activeRun);
+
+                        for (GPSPoint point : this.activeRun.getGpspoints()) {
+                            gpsTable.deleteGPSPoint(point);
+                        }
+
+                        dbError = true;
+                    }
+                } else {
+                    dbError = true;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            dbError = true;
         }
 
+        /* provide intent as result for the activity that launched this run */
+        double finishedDistance = PathCalculator.calculatePathLength(this.activeRun.getGpspoints());
+        Intent intent = new Intent();
+        intent.putExtra(DATABASE_ERROR_MESSAGE, dbError);
+        intent.putExtra(RUNGOAL_ACHIEVED_MESSAGE,finishedDistance / 1000D >= this.goal);
+        this.setResult(RESULT_OK, intent);
         this.finish();
+    }
+
+    /**
+     * Clean up update requests, timers etc. so they don't continue running in the background
+     */
+    private void cleanUpTasks() {
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.removeLocationUpdates(this.locationCallback);
+        this.timerHandler.removeCallbacks(this.timerRunnable);
     }
 
     @Override
@@ -318,8 +396,6 @@ public class RunActivity extends AppCompatActivity {
          * as a safety measurement in case the activity is stopped by something else
          * than the user pressing the button
          */
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.removeLocationUpdates(this.locationCallback);
-        this.timerHandler.removeCallbacks(this.timerRunnable);
+        this.cleanUpTasks();
     }
 }

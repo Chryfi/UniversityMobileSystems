@@ -45,9 +45,9 @@ public class UserTable extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * Insert the provided User in the database.
      * @param user
-     * @return true if the insertiojn
+     * @return true if the insertion was successful.
      */
     public boolean insertUser(User user) {
         try (SQLiteDatabase db = this.getWritableDatabase()) {
@@ -67,6 +67,7 @@ public class UserTable extends SQLiteOpenHelper {
     }
 
     /**
+     * Get the user by the provided username.
      * @param username
      * @return returns the user, if it was found.
      */
@@ -93,8 +94,9 @@ public class UserTable extends SQLiteOpenHelper {
     }
 
     /**
+     * Delete the provided User.
      * @param user
-     * @return true if a user was deleted. false if nothing was deleted.
+     * @return true if a user was deleted. False if nothing was deleted.
      */
     public boolean deleteUser(User user) {
         try (SQLiteDatabase db = this.getWritableDatabase()){

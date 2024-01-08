@@ -19,7 +19,9 @@ import android.widget.TextView;
 import com.chryfi.jogjoy.data.User;
 import com.chryfi.jogjoy.data.tables.UserTable;
 
-
+/**
+ * Provides functionality and UI to register a user.
+ */
 public class RegisterUserActivity extends AppCompatActivity {
 
     @Override
@@ -30,8 +32,15 @@ public class RegisterUserActivity extends AppCompatActivity {
         EditText weight = this.findViewById(R.id.weight_input);
         EditText height = this.findViewById(R.id.height_input);
 
-        /* event listeners when the user finished typing the text to auto correct it */
+        /*
+         * event listeners when the user finished typing the text to round it.
+         * Prevent too many decimal places
+         *
+         * focusChangeListener is triggered when the user enters or exits the text element.
+         * Input gets rounded when exiting.
+         */
         weight.setOnFocusChangeListener((view, hasFocus) -> {
+            /* clicks away from the element */
             if (!hasFocus) {
                 try {
                     weight.setText(String.valueOf(roundWeight(Float.parseFloat(weight.getText().toString()))));
@@ -40,6 +49,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         });
 
         height.setOnFocusChangeListener((view, hasFocus) -> {
+            /* clicks away from the element */
             if (!hasFocus) {
                 try {
                     height.setText(String.valueOf(roundHeight(Float.parseFloat(height.getText().toString()))));
@@ -67,6 +77,10 @@ public class RegisterUserActivity extends AppCompatActivity {
         height.setText("");
     }
 
+    /**
+     * Event method for UI when clicking on register button.
+     * @param view
+     */
     public void registerUser(View view) {
         EditText username = this.findViewById(R.id.username_input);
         EditText password = this.findViewById(R.id.password_input);
@@ -74,8 +88,10 @@ public class RegisterUserActivity extends AppCompatActivity {
         EditText weight = this.findViewById(R.id.weight_input);
         EditText height = this.findViewById(R.id.height_input);
 
+        /* inputs have an error, can't register user ->, meow? */
         if (!this.validateInput()) return;
 
+        /* turn the UI gender value into the system internal value */
         User.Gender genderValue = null;
         switch (gender.getSelectedItemPosition()) {
             case 0:
@@ -87,6 +103,7 @@ public class RegisterUserActivity extends AppCompatActivity {
             case 2:
                 genderValue = User.Gender.OTHER;
                 break;
+
         }
 
         String passwordValue = password.getText().toString();
@@ -96,6 +113,10 @@ public class RegisterUserActivity extends AppCompatActivity {
 
         User user = new User(usernameValue, passwordValue, weightValue, heightValue, genderValue);
 
+        /*
+         * Insert the user into the database.
+         * If the insertion was successful, send the user to the login activity.
+         */
         try (UserTable userTable = new UserTable(this)) {
             if (userTable.insertUser(user)) {
                 this.startActivity(new Intent(this, LoginUserActivity.class));
@@ -113,8 +134,8 @@ public class RegisterUserActivity extends AppCompatActivity {
     }
 
     /**
-     * This method validates the UI input elements and sets respective errors.
-     * @return false if there is an error in the input.
+     * This method validates the inputs by the user and sets respective errors when needed.
+     * @return false if there is an error in the inputs.
      */
     private boolean validateInput() {
         EditText username = this.findViewById(R.id.username_input);
@@ -156,6 +177,7 @@ public class RegisterUserActivity extends AppCompatActivity {
             password1.setError(this.getResources().getString(R.string.password_no_match));
             noError = false;
         } else if (password0.getText().toString().length() <= 5) {
+            /* password is not long enough */
             password0.setError(this.getResources().getString(R.string.invalid_password));
             password1.setError(this.getResources().getString(R.string.invalid_password));
             noError = false;

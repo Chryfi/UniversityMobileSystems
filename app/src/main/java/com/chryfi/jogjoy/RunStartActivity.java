@@ -182,6 +182,6 @@ public class RunStartActivity extends AppCompatActivity {
     }
 
     private float roundRunGoal(float runGoal) {
-        return Math.round(runGoal * 10) / 10F;
+        return Math.round(runGoal * 100) / 100F;
     }
 }

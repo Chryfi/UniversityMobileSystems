@@ -29,6 +29,10 @@ public class RunStartActivity extends AppCompatActivity {
      * Message key when sending the goal input to the RunActivity.
      */
     public final static String RUNGOAL_MESSAGE = "JogJoy.RUNGOALDISTANCE";
+    /**
+     * Request code to identify the result returned from the run activity.
+     */
+    public static final int RUN_RESULT_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,8 @@ public class RunStartActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+
+        if (requestCode != RUN_RESULT_REQUEST) return;
 
         if (intent.getBooleanExtra(RunActivity.DATABASE_ERROR_MESSAGE, false)) {
             new AlertDialog.Builder(this)
@@ -144,7 +150,7 @@ public class RunStartActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, RunActivity.class);
         intent.putExtra(RUNGOAL_MESSAGE, runGoalValue);
-        this.startActivityForResult(intent, 0);
+        this.startActivityForResult(intent, RUN_RESULT_REQUEST);
     }
 
     /**

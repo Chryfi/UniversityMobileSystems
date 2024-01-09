@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chryfi.jogjoy.data.GPSPoint;
@@ -55,10 +56,10 @@ public class RunStartActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        if (requestCode != RUN_RESULT_REQUEST) return;
+        if (requestCode != RUN_RESULT_REQUEST || intent == null) return;
 
         if (intent.getBooleanExtra(RunActivity.DATABASE_ERROR_MESSAGE, false)) {
             new AlertDialog.Builder(this)

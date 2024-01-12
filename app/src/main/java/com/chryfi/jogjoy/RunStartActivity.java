@@ -169,6 +169,7 @@ public class RunStartActivity extends AppCompatActivity {
         try {
             Float.parseFloat(runGoal.getText().toString());
         } catch (NumberFormatException e) {
+            runGoal.setError(this.getResources().getString(R.string.not_a_number));
             return false;
         }
 

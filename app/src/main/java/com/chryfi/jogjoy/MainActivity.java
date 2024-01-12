@@ -52,8 +52,13 @@ public class MainActivity extends AppCompatActivity {
          */
         if (!MainActivity.getLoggedinUsername().isEmpty()) {
             Intent intent = new Intent(this, RunStartActivity.class);
+            /*
+             * this clears the back-stack
+             * when logged in, everything before that shouldn't be accessed anymore
+             */
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             this.startActivity(intent);
+            /* finish destroys the activity and prevents the user from going back to it */
             this.finish();
         }
     }

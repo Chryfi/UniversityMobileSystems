@@ -381,6 +381,7 @@ public class RunActivity extends AppCompatActivity {
         intent.putExtra(DATABASE_ERROR_MESSAGE, dbError);
         intent.putExtra(RUNGOAL_ACHIEVED_MESSAGE,finishedDistance / 1000D >= this.goal);
         this.setResult(RESULT_OK, intent);
+        /* finish destroys the activity and prevents the user from going back to it */
         this.finish();
     }
 

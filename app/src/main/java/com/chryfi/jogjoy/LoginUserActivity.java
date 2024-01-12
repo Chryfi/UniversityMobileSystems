@@ -48,9 +48,13 @@ public class LoginUserActivity extends AppCompatActivity {
                 MainActivity.loginUser(user.get().getUsername());
                 /* explicit intent to start RunStartActivity*/
                 Intent intent = new Intent(this, RunStartActivity.class);
-                /* don't let the user go back to login page */
+                /*
+                 * this clears the back-stack
+                 * when logged in, everything before that shouldn't be accessed anymore
+                 */
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 this.startActivity(intent);
+                /* finish destroys the activity and prevents the user from going back to it */
                 this.finish();
             } else {
                 /* popup that tells the user that password or username was wrong */

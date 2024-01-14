@@ -332,69 +332,80 @@ public class RunActivity extends AppCompatActivity {
     public void stopRun() {
         this.cleanUpTasks();
 
-        boolean dbError = false;
-        /*
-         * Insert run and gps points into the database, only if there are 2 gps points minimum.
-         */
-        try (RunTable runTable = new RunTable(this);
-             GPSTable gpsTable = new GPSTable(this)) {
-            if (this.activeRun.getGpspoints().size() >= 2) {
-                if (runTable.insertRun(this.activeRun)) {
-                    /* run id is only available after inserting run into database */
-                    for (GPSPoint point : this.activeRun.getGpspoints()) {
-                        point.setRunid(this.activeRun.getId());
-                    }
-
-                    /* insert the gps points and count how many were successfully inserted */
-                    int i = 0;
-                    for (GPSPoint point : this.activeRun.getGpspoints()) {
-                        if (gpsTable.insertGPSPoint(point)) {
-                            i++;
-                        }
-                    }
-
-                    /*
-                     * not enough points were inserted,
-                     * delete everything to ensure correct constraints
-                     */
-                    if (i < 2) {
-                        runTable.deleteRun(this.activeRun);
-
+        /* add one last gps point to properly end the run -> only end when GPS update came back */
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        Task<Location> task = fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null);
+        task.addOnSuccessListener((location) -> {
+            this.addLocation(location);
+            boolean dbError = false;
+            /*
+             * Insert run and gps points into the database, only if there are 2 gps points minimum.
+             */
+            try (RunTable runTable = new RunTable(this);
+                 GPSTable gpsTable = new GPSTable(this)) {
+                if (this.activeRun.getGpspoints().size() >= 2) {
+                    if (runTable.insertRun(this.activeRun)) {
+                        /* run id is only available after inserting run into database */
                         for (GPSPoint point : this.activeRun.getGpspoints()) {
-                            gpsTable.deleteGPSPoint(point);
+                            point.setRunid(this.activeRun.getId());
                         }
 
+                        /* insert the gps points and count how many were successfully inserted */
+                        int i = 0;
+                        for (GPSPoint point : this.activeRun.getGpspoints()) {
+                            if (gpsTable.insertGPSPoint(point)) {
+                                i++;
+                            }
+                        }
+
+                        /*
+                         * not enough points were inserted,
+                         * delete everything to ensure correct constraints
+                         */
+                        if (i < 2) {
+                            runTable.deleteRun(this.activeRun);
+
+                            for (GPSPoint point : this.activeRun.getGpspoints()) {
+                                gpsTable.deleteGPSPoint(point);
+                            }
+
+                            dbError = true;
+                        }
+                    } else {
                         dbError = true;
                     }
-                } else {
-                    dbError = true;
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                dbError = true;
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            dbError = true;
-        }
 
-        /* provide intent as result for the activity that launched this run */
-        double finishedDistance = PathCalculator.calculatePathLength(this.activeRun.getGpspoints());
-        Intent intent = new Intent();
-        intent.putExtra(DATABASE_ERROR_MESSAGE, dbError);
-        intent.putExtra(RUNGOAL_ACHIEVED_MESSAGE,finishedDistance / 1000D >= this.goal);
-        this.setResult(RESULT_OK, intent);
-        /*
-         * finish destroys the activity and prevents the user from going back to it
-         * the user will be redirected to the last activity on the back-stack
-         */
-        this.finish();
+            /* provide intent as result for the activity that launched this run */
+            double finishedDistance = PathCalculator.calculatePathLength(this.activeRun.getGpspoints());
+            Intent intent = new Intent();
+            intent.putExtra(DATABASE_ERROR_MESSAGE, dbError);
+            intent.putExtra(RUNGOAL_ACHIEVED_MESSAGE,finishedDistance / 1000D >= this.goal);
+            this.setResult(RESULT_OK, intent);
+            /*
+             * finish destroys the activity and prevents the user from going back to it
+             * the user will be redirected to the last activity on the back-stack
+             */
+            this.finish();
+        });
     }
 
     /**
      * Clean up update requests, timers etc. so they don't continue running in the background
      */
     private void cleanUpTasks() {
-        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.removeLocationUpdates(this.locationCallback);
-        this.timerHandler.removeCallbacks(this.timerRunnable);
+        if (this.locationCallback != null) {
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient.removeLocationUpdates(this.locationCallback);
+        }
+
+        if (this.timerHandler != null && this.timerRunnable != null) {
+            this.timerHandler.removeCallbacks(this.timerRunnable);
+        }
     }
 
     @Override

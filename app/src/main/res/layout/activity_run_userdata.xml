@@ -15,6 +15,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/logoText"
+        app:layout_constraintStart_toEndOf="@+id/logoText"
+        app:layout_constraintTop_toTopOf="@+id/logoText"
+        app:srcCompat="@drawable/neko_cat_dead" />
+
     <Button
         android:id="@+id/logout"
         android:layout_width="127dp"
